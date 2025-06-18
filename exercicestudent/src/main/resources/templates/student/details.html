@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" >
+    <title>M2I High School</title>
+    <span th:replace="~{home :: css}"></span>
+</head>
+
+<body>
+    <header>
+        <span th:replace="~{home :: navbar}"></span>
+    </header>
+    <div class="bs-body-color d-flex justify-content-center align-items-center flex-column card m-5 container">
+
+        <h1 class="m-3">Student's Details</h1>
+        <div>
+            <p class="" th:text='${"Fisrtname: " +  student.getFirstname()}'/>
+            <p class="" th:text='${"Lastname: " +  student.getLastname()}'/>
+            <p th:text='${"Age: " +  student.getAge()}'/>
+            <p class="" th:text='${"Email: " +  student.getEmail()}'/>
+        </div>
+        <div class="align-self-end m-2">
+            <a class="btn btn-primary" th:href="@{/update/{id}(id=${student.getId()})}" >Modify</a>
+            <a class="btn btn-outline-primary" th:href="@{/list}" >Back to list</a>
+        </div>
+    </div>
+</body>
+</html>
