@@ -1,7 +1,11 @@
 package org.example.exercicestudent.controllers;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.example.exercicestudent.models.Student;
+import org.example.exercicestudent.services.LocalStudentService;
+import org.example.exercicestudent.services.MySqlStudentService;
 import org.example.exercicestudent.services.StudentService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -9,12 +13,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+
 @Controller
 public class StudentController {
 
     private final StudentService studentService;
 
-    public StudentController(StudentService studentService) {
+    @Autowired
+    public StudentController(MySqlStudentService studentService) {
         this.studentService = studentService;
     }
 
@@ -53,7 +59,7 @@ public class StudentController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute Student student,Model model) {
+    public String add(@ModelAttribute Student student) {
         studentService.addStudent(student);
         return "redirect:/list";
         //return "redirect:/product/" + product.getId();
@@ -74,8 +80,9 @@ public class StudentController {
     }
 
     @GetMapping("/delete/{id}")
-    public String delete(@PathVariable UUID id){
+    public String delete(@PathVariable UUID id,
+                         @RequestParam(value = "from",required = false) String destination){
         studentService.deleteStudent(id);
-        return "redirect:/list";
+        return "redirect:"+destination;
     }
 }
