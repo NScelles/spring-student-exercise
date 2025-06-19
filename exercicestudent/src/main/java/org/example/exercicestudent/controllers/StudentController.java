@@ -59,7 +59,7 @@ public class StudentController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute Student student) {
+    public String add(@ModelAttribute("student") Student student) {
         studentService.addStudent(student);
         return "redirect:/list";
         //return "redirect:/product/" + product.getId();
@@ -74,8 +74,8 @@ public class StudentController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Student product) {
-        studentService.updateStudent(product);
+    public String update(@ModelAttribute("student") Student student) {
+        studentService.updateStudent(student);
         return "redirect:/list";
     }
 
