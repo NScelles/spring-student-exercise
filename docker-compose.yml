@@ -1,0 +1,45 @@
+services:
+
+  db:
+    image: mysql
+    restart: always
+    container_name: mysql
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=marie
+      - MYSQL_DATABASE=mydb
+    volumes:
+      - db_student:/var/lib/mysql
+    networks:
+      - student_network
+  
+  phpmyadmin:
+    image: phpmyadmin
+    restart: always
+    container_name: phpmyadmin
+    environment:
+      - PMA_HOST=db
+    ports:
+      - "8080:80"
+    depends_on:
+      - db
+    networks:
+      - student_network
+
+  student:
+    build: .
+    restart: always
+    container_name: student
+    ports:
+      - "8081:8080"
+    depends_on:
+      - db
+    networks:
+      - student_network
+
+volumes:
+  db_student:
+
+networks:
+  student_network:
