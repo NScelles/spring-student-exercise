@@ -3,6 +3,7 @@ package org.example.exercicestudent.services;
 import org.example.exercicestudent.models.Student;
 import org.example.exercicestudent.repositories.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@Primary
 public class MySqlStudentService implements StudentService {
 
     @Autowired
